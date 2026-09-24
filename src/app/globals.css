@@ -1,26 +1,42 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-barlow);
+  --font-mono: var(--font-jetbrains);
+  
+  --color-brand-primary: #96C0B7;
+  --color-brand-cyan: #878E88;
+  --color-brand-surface: #182320;
+  --color-brand-bg: #0b0f0e;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0b0f0e;
+  --text: #e8edeb;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Reusing your custom gradient glows */
+.cta-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(150,192,183,0.15) 0%, rgba(11,15,14,0) 70%);
+  z-index: 0;
+  pointer-events: none;
 }

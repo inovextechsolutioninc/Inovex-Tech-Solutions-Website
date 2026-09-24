@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Inovex Tech Solutions - AI-Native Website
 
-## Getting Started
+The official enterprise website for Inovex Tech Solutions. This is a modern, high-performance Next.js web application that doesn't just display information—it actively operates our agency using integrated AI agents.
 
-First, run the development server:
+## 🚀 Tech Stack
+* **Framework:** Next.js (App Router)
+* **Styling:** Tailwind CSS + Framer Motion
+* **AI Integration:** Anthropic API (Claude 3.5 Sonnet & Haiku)
+* **Deployment:** Cloudflare Pages
+* **Automation:** GitHub Actions (Cron Jobs)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🤖 Integrated AI Agents
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This repository houses three custom AI agents that run our operations autonomously:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **GEO Content Agent (`/scripts/agents/geo-content-agent.mjs`)**
+   Runs daily via GitHub Actions. Researches trending AI topics, drafts technical SEO articles in JSON-LD format, and commits them to the codebase to trigger a site rebuild.
+2. **Site Reliability Agent (`/scripts/agents/site-reliability-agent.mjs`)**
+   Runs automatically to scan all generated content for broken links, ensuring our technical SEO score remains at 100/100.
+3. **CRM Enrichment Agent (`/src/app/api/crm-agent/route.ts`)**
+   A Next.js API webhook that intercepts contact form submissions, uses Claude to research the prospect's company domain, and prepares a custom sales pitch.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💻 Local Development
 
-## Learn More
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Set up environment variables:**
+   Create a `.env.local` file in the root directory and add your Anthropic API key:
+   ```env
+   ANTHROPIC_API_KEY=your_claude_api_key_here
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ☁️ Deployment
+This project is configured for seamless deployment to **Cloudflare Pages**. Any push to the `main` branch will automatically trigger a production build using `@cloudflare/next-on-pages`.

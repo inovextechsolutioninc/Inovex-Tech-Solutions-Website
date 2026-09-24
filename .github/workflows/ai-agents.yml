@@ -1,0 +1,40 @@
+name: Autonomous AI Agents
+
+# Run this automatically every day at 3:00 AM UTC
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  # Also allow triggering manually from the GitHub UI
+  workflow_dispatch:
+
+jobs:
+  run-agents:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install Dependencies
+        run: npm install @anthropic-ai/sdk
+        
+      - name: 🤖 Run GEO Content Agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/agents/geo-content-agent.mjs
+        
+      - name: 🔍 Run Site Reliability Agent
+        run: node scripts/agents/site-reliability-agent.mjs
+        
+      - name: 🚀 Commit & Push Changes
+        run: |
+          git config --global user.name "Inovex AI Agent"
+          git config --global user.email "bot@inovextech.com"
+          git add src/content/articles/*
+          # Only commit if there are actual changes
+          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 AI Agent: Published new SEO content"
+          git push
